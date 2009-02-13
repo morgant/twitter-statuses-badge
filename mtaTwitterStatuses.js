@@ -1,7 +1,8 @@
 // 
-// twitter_statuses.js
+// mtaTwitterStatuses.js
 // 
-// A modification of the official Twitter JavaScript badge found here:
+// A modification of the official Twitter JavaScript badge originally found
+// here:
 //
 //    http://twitter.com/account/badge
 //
@@ -14,15 +15,22 @@
 // are merely an example of usage and only this JavaScript file is needed (it
 // can be embeded directly in any HTML document, if you prefer).
 // 
-// One might also want to integrate Jon Aquino's date parsing fix for IE:
-//
-//    http://jonaquino.blogspot.com/2006/12/twitter-increasing-number-of-twitters.html
-// 
 // v0.1   2007-05-02 - Morgan Aldridge <morgant@makkintosshu.com>
 //                     Initial release.
+// v0.2   2009-01-07 - Morgan Aldridge <morgant@makkintosshu.com>
+//                     Integrated Jon Aquino's IE date parsing fix. Minor HTML
+//                     tweaks & function name changes for better namespacing.
 // 
 
-function relative_time(time_value) {
+// Make date parseable in IE [Jon Aquino 2007-03-29]
+// http://jonaquino.blogspot.com/2006/12/twitter-increasing-number-of-twitters.html
+function fixDate(d) {
+	var a = d.split(' ');
+	var year = a.pop();
+	return a.slice(0, 3).concat([year]).concat(a.slice(3)).join(' ');
+}
+
+function relativeTime(time_value) {
     var parsed_date = Date.parse(time_value);
     
     var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
@@ -45,11 +53,12 @@ function relative_time(time_value) {
     }
 }
 
-function twitterCallback(obj) {
+function mtaTwitterCallback(obj) {
     var id = obj[0].user.id;
     var statuses_html = '';
+    var twitterDiv = document.getElementById('mtaTwitter');
     
-    document.getElementById('my_twitter').innerHTML = '<a href="http://twitter.com/' + obj[0].user.screen_name + '"><img src="' + obj[0].user.profile_image_url + '" alt="' + obj[0].user.name + '" /></a>';
+    twitterDiv.innerHTML = '<a href="http://twitter.com/' + obj[0].user.screen_name + '"><img src="' + obj[0].user.profile_image_url + '" alt="' + obj[0].user.name + '" /></a>' + twitterDiv.innerHTML;
     
     for ( var i = 0; i < obj.length; i++ ) {
     	statuses_html += '<li class="';
@@ -66,7 +75,8 @@ function twitterCallback(obj) {
     	}
     	statuses_html += '">';
     	statuses_html += obj[i].text;
-    	statuses_html +=' <span>(<a href="http://twitter.com/' + obj[i].user.screen_name + '/statuses/' + obj[i].id + '">' + relative_time(obj[i].created_at) + '</a>)</span></li>';
+    	statuses_html +=' <span><a href="http://twitter.com/' + obj[i].user.screen_name + '/statuses/' + obj[i].id + '">' + relativeTime(fixDate(obj[i].created_at)) + '</a></span></li>';
     }
-    document.getElementById('my_twitter_statuses').innerHTML = statuses_html;
+    
+    document.getElementById('mtaTwitterStatuses').innerHTML = statuses_html;
 }
