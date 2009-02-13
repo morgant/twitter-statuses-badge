@@ -1,0 +1,29 @@
+body { background-color: #000; }
+#my_twitter { float: left; }
+#my_twitter a img {
+	height: 48px;
+    width: 48px;
+    border: 1px solid #CCC;
+}
+#my_twitter_statuses:before {
+    float: left;
+    display: block;
+    width: 11px;
+    height: 21px;
+    margin-top: 15px;
+    margin-left: -11px;
+    content: url("white_triangle-left.png");
+}
+#my_twitter_statuses {
+    position: relative;
+    background-color: #fff;
+    list-style: none;
+    margin-left: 66px;
+    padding: 0px;
+    font-family: Helvetica, sans-serif;
+}
+#my_twitter_statuses li { padding: 10px 10px; font-size: 10pt; }
+#my_twitter_statuses li.first { font-size: 18pt; font-weight: bold; }
+#my_twitter_statuses li.even { background-color: #EDEEFD; }
+#my_twitter_statuses li.first span { font-size: 10pt; font-weight: normal; }
+#my_twitter_statuses li span { font-style: normal; }
