@@ -17,13 +17,16 @@
 // 
 // v0.1   2007-05-02 - Morgan Aldridge <morgant@makkintosshu.com>
 //                     Initial release.
-// v0.2   2009-01-07 - Morgan Aldridge <morgant@makkintosshu.com>
+// v0.2   2009-01-07 - Morgan Aldridge
 //                     Integrated Jon Aquino's IE date parsing fix. Minor HTML
 //                     tweaks & function name changes for better namespacing.
-// v0.3   2009-01-09 - Morgan Aldridge <morgant@makkintosshu.com>
+// v0.3   2009-01-09 - Morgan Aldridge
 //                     Integrated regular expressions for making @replies and
 //                     links clickable, thanks to René van Meurs
 //                     <info@renevanmeurs.nl>.
+// v0.4   2009-02-11 - Morgan Aldridge
+//                     Updated regular expressions to find @replies butting up
+//                     against punctuation. Some HTML restructuring.
 // 
 
 // Make date parseable in IE [Jon Aquino 2007-03-29]
@@ -60,14 +63,13 @@ function relativeTime(time_value) {
 function mtaTwitterCallback(obj) {
     var id = obj[0].user.id;
     var statuses_html = '';
-    var twitterDiv = document.getElementById('mtaTwitter');
     
-    twitterDiv.innerHTML = '<a href="http://twitter.com/' + obj[0].user.screen_name + '"><img src="' + obj[0].user.profile_image_url + '" alt="' + obj[0].user.name + '" /></a>' + twitterDiv.innerHTML;
+    statuses_html += '<a href="http://twitter.com/' + obj[0].user.screen_name + '"><img src="' + obj[0].user.profile_image_url + '" alt="' + obj[0].user.name + '" /></a>' + "\n<ul>\n";
     
     for ( var i = 0; i < obj.length; i++ ) {
 		var tweet_text = obj[i].text;
 		tweet_text = tweet_text.replace(/((http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(\/*)(:(\d+))?([A-Z0-9_\/.?~-]*))/gi, '<a href="$1">$1</a>');
-		tweet_text = tweet_text.replace(/((@([A-Z0-9_]+)) )/gi, '<a class="reply" target="_blank" title="$3 on twitter" href="http://twitter.com/$3">$2</a> ');
+		tweet_text = tweet_text.replace(/(@([A-Z0-9_]+))/gi, '@<a class="reply" title="$2 on twitter" href="http://twitter.com/$2">$2</a>');
     	
     	statuses_html += '<li class="';
     	if ( i == 0 ) {
@@ -83,8 +85,9 @@ function mtaTwitterCallback(obj) {
     	}
     	statuses_html += '">';
     	statuses_html += tweet_text;
-    	statuses_html += ' <span class="when"><a href="http://twitter.com/' + obj[i].user.screen_name + '/statuses/' + obj[i].id + '">' + relativeTime(fixDate(obj[i].created_at)) + '</a></span></li>';
+    	statuses_html += ' <span class="when"><a href="http://twitter.com/' + obj[i].user.screen_name + '/statuses/' + obj[i].id + '">' + relativeTime(fixDate(obj[i].created_at)) + "</a></span></li>\n";
     }
+    statuses_html += "</ul>\n";
     
-    document.getElementById('mtaTwitterStatuses').innerHTML = statuses_html;
+    document.getElementById('mtaTwitter').innerHTML = statuses_html;
 }
