@@ -27,7 +27,11 @@
 // v0.4   2009-02-11 - Morgan Aldridge
 //                     Updated regular expressions to find @replies butting up
 //                     against punctuation. Some HTML restructuring.
+// v0.5   2009-05-05 - Morgan Aldridge
+//                     Added feature to filter out @replies, if requested.
 // 
+
+var mtaTwitterStatusesFilterReplies = false;
 
 // Make date parseable in IE [Jon Aquino 2007-03-29]
 // http://jonaquino.blogspot.com/2006/12/twitter-increasing-number-of-twitters.html
@@ -63,29 +67,38 @@ function relativeTime(time_value) {
 function mtaTwitterCallback(obj) {
     var id = obj[0].user.id;
     var statuses_html = '';
+    var isEven = false;
     
     statuses_html += '<a href="http://twitter.com/' + obj[0].user.screen_name + '"><img src="' + obj[0].user.profile_image_url + '" alt="' + obj[0].user.name + '" /></a>' + "\n<ul>\n";
     
     for ( var i = 0; i < obj.length; i++ ) {
 		var tweet_text = obj[i].text;
-		tweet_text = tweet_text.replace(/((http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(\/*)(:(\d+))?([A-Z0-9_\/.?~-]*))/gi, '<a href="$1">$1</a>');
-		tweet_text = tweet_text.replace(/(@([A-Z0-9_]+))/gi, '@<a class="reply" title="$2 on twitter" href="http://twitter.com/$2">$2</a>');
-    	
-    	statuses_html += '<li class="';
-    	if ( i == 0 ) {
-    		statuses_html += 'first';
-    	} else if ( i == (obj.length - 1) ) {
-    		statuses_html += 'last';
+		
+		//console.log("mtaTwitterStatusesFilterReplies = "+mtaTwitterStatusesFilterReplies+"\n");
+		//console.log("tweet_text.match(/^@([A-Z0-9_]+)/gi) = "+tweet_text.match(/^@([A-Z0-9_]+)/gi)+"\n");
+		if ( !mtaTwitterStatusesFilterReplies || (tweet_text.match(/^@[A-Z0-9_]+/gi) == null) )
+		{
+			tweet_text = tweet_text.replace(/((http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(\/*)(:(\d+))?([A-Z0-9_\/.?~-]*))/gi, '<a href="$1">$1</a>');
+			tweet_text = tweet_text.replace(/(@([A-Z0-9_]+))/gi, '@<a class="reply" title="$2 on twitter" href="http://twitter.com/$2">$2</a>');
+    		
+    		statuses_html += '<li class="';
+    		if ( i == 0 ) {
+    			statuses_html += 'first';
+    		} else if ( i == (obj.length - 1) ) {
+    			statuses_html += 'last';
+    		}
+    		if ( isEven ) {
+    			statuses_html += ' even';
+    		}
+    		else {
+    			statuses_html += ' odd';
+    		}
+    		statuses_html += '">';
+    		statuses_html += tweet_text;
+    		statuses_html += ' <span class="when"><a href="http://twitter.com/' + obj[i].user.screen_name + '/statuses/' + obj[i].id + '">' + relativeTime(fixDate(obj[i].created_at)) + "</a></span></li>\n";
+    		
+    		isEven = !isEven;
     	}
-    	if ( ((i+1) % 2) == 0 ) {
-    		statuses_html += ' even';
-    	}
-    	else {
-    		statuses_html += ' odd';
-    	}
-    	statuses_html += '">';
-    	statuses_html += tweet_text;
-    	statuses_html += ' <span class="when"><a href="http://twitter.com/' + obj[i].user.screen_name + '/statuses/' + obj[i].id + '">' + relativeTime(fixDate(obj[i].created_at)) + "</a></span></li>\n";
     }
     statuses_html += "</ul>\n";
     

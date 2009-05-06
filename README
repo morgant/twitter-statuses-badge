@@ -12,7 +12,7 @@ A modification of the official Twitter JavaScript badge originally found here:
 
    http://twitter.com/account/badge
 
-This modification provides insertion of the user's image (linking to their twitter page), displaying one or more of the user's recent tweets (including time posted, linking to that tweet's permalink), plus a bunch of CSS hooks for the list items.
+This modification provides insertion of the user's image (linking to their twitter page), displaying one or more of the user's recent tweets (including time posted, linking to that tweet's permalink), optional filtering of tweets starting with an @reply, plus a bunch of CSS hooks for the list items.
 
 This package contains an html file and associated CSS & image files, but they are merely an example of usage and only the mtaTwitterStatuses.js JavaScript file is needed (it can be embeded directly in any HTML document, if you prefer).
 
@@ -34,7 +34,23 @@ There are three steps to using mtaTwitterStatuses.js:
 
 That's it! Let me know if you have any questions, bug reports, or feature requests.
 
+ADVANCED FEATURES
+
+In addition to the CSS hooks so that you have finer grained control over the styling of the badge, I'm also revealing preferences which you may set to use more advanced features.
+
+To use them, you must add an extra <script type="text/javascript></script> block after the include of mtaTwitterStatuses.js and before you call the callback In this block, you should set one of the following variables accordingly:
+
+mtaTwitterStatusesFilterReplies: (true/false) This will filter out tweets that start with an @reply. Default is false.
+
+Example:
+
+	<script type="text/javascript">
+		mtaTwitterStatusesFilterReplies = true;
+	</script>
+
 CHANGE LOG
+
+v0.5 - Added feature to filter out @replies, if requested.
 
 v0.4 – Updated regular expressions to find @replies butting up against punctuation. Some HTML+CSS restructuring.
 
