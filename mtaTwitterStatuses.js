@@ -29,9 +29,18 @@
 //                     against punctuation. Some HTML restructuring.
 // v0.5   2009-05-05 - Morgan Aldridge
 //                     Added feature to filter out @replies, if requested.
+// v0.6   2009-05-06 - Morgan Aldridge
+//                     Added array for defaults/settings. Re-implemented @reply
+//                     filtering, limiting tweet count, and added changing of
+//                     the element ID and disabling the icon.
 // 
 
-var mtaTwitterStatusesFilterReplies = false;
+var mtaTwitterStatuses = new Array();
+mtaTwitterStatuses['defaults'] = new Array();
+mtaTwitterStatuses['defaults']['elementId'] = 'mtaTwitter';
+mtaTwitterStatuses['defaults']['tweetCount'] = 5;
+mtaTwitterStatuses['defaults']['filterReplies'] = false;
+mtaTwitterStatuses['defaults']['showIcon'] = true;
 
 // Make date parseable in IE [Jon Aquino 2007-03-29]
 // http://jonaquino.blogspot.com/2006/12/twitter-increasing-number-of-twitters.html
@@ -68,23 +77,29 @@ function mtaTwitterCallback(obj) {
     var id = obj[0].user.id;
     var statuses_html = '';
     var isEven = false;
+    var maxTweets = mtaTwitterStatuses['defaults']['tweetCount'];
+    var tweetCount = 0;
     
-    statuses_html += '<a href="http://twitter.com/' + obj[0].user.screen_name + '"><img src="' + obj[0].user.profile_image_url + '" alt="' + obj[0].user.name + '" /></a>' + "\n<ul>\n";
+    if ( mtaTwitterStatuses['defaults']['showIcon'] )
+    {
+    	statuses_html += '<a href="http://twitter.com/' + obj[0].user.screen_name + '"><img src="' + obj[0].user.profile_image_url + '" alt="' + obj[0].user.name + '" /></a>' + "\n";
+    }
+    statuses_html += "<ul>\n";
     
-    for ( var i = 0; i < obj.length; i++ ) {
+    for ( var i = 0; i < obj.length && tweetCount < maxTweets; i++ ) {
 		var tweet_text = obj[i].text;
 		
-		//console.log("mtaTwitterStatusesFilterReplies = "+mtaTwitterStatusesFilterReplies+"\n");
-		//console.log("tweet_text.match(/^@([A-Z0-9_]+)/gi) = "+tweet_text.match(/^@([A-Z0-9_]+)/gi)+"\n");
-		if ( !mtaTwitterStatusesFilterReplies || (tweet_text.match(/^@[A-Z0-9_]+/gi) == null) )
+		if ( !mtaTwitterStatuses['defaults']['filterReplies'] || (tweet_text.match(/^@[A-Z0-9_]+/gi) == null) )
 		{
+			tweetCount++;
+    		
 			tweet_text = tweet_text.replace(/((http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(\/*)(:(\d+))?([A-Z0-9_\/.?~-]*))/gi, '<a href="$1">$1</a>');
 			tweet_text = tweet_text.replace(/(@([A-Z0-9_]+))/gi, '@<a class="reply" title="$2 on twitter" href="http://twitter.com/$2">$2</a>');
     		
     		statuses_html += '<li class="';
-    		if ( i == 0 ) {
-    			statuses_html += 'first';
-    		} else if ( i == (obj.length - 1) ) {
+    		if ( tweetCount == 1 ) {
+    			statuses_html += 'first ';
+    		} else if ( tweetCount == maxTweets ) {
     			statuses_html += 'last';
     		}
     		if ( isEven ) {
@@ -102,5 +117,5 @@ function mtaTwitterCallback(obj) {
     }
     statuses_html += "</ul>\n";
     
-    document.getElementById('mtaTwitter').innerHTML = statuses_html;
+    document.getElementById(mtaTwitterStatuses['defaults']['elementId']).innerHTML = statuses_html;
 }
