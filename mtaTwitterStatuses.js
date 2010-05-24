@@ -29,7 +29,7 @@
 //                     against punctuation. Some HTML restructuring.
 // v0.5   2009-05-05 - Morgan Aldridge
 //                     Added feature to filter out @replies, if requested.
-// v0.6   2010-05-21 - Morgan Aldridge
+// v0.6   2010-05-24 - Morgan Aldridge
 //                     Further namespacing improvements plus variables for
 //                     defaults/settings. Re-implemented @reply filtering, 
 //                     limiting tweet count, and added changing of the element
