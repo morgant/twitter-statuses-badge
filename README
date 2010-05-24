@@ -63,10 +63,10 @@ v0.6 - Further namespacing improvements plus variables for defaults/settings. Re
 
 v0.5 - Added feature to filter out @replies, if requested.
 
-v0.4 – Updated regular expressions to find @replies butting up against punctuation. Some HTML+CSS restructuring.
+v0.4 - Updated regular expressions to find @replies butting up against punctuation. Some HTML+CSS restructuring.
 
-v0.3 – Integrated regular expressions for making @replies and inks clickable, thanks to René van Meurs.
+v0.3 - Integrated regular expressions for making @replies and inks clickable, thanks to René van Meurs.
 
-v0.2 – Integrated Jon Aquino’s IE date parsing fix. Minor HTML+CSS tweaks & function name changes for better namespacing.
+v0.2 - Integrated Jon Aquino's IE date parsing fix. Minor HTML+CSS tweaks & function name changes for better namespacing.
 
-v0.1 – Initial release.
+v0.1 - Initial release.
