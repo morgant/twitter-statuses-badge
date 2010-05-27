@@ -34,6 +34,8 @@
 //                     defaults/settings. Re-implemented @reply filtering, 
 //                     limiting tweet count, and added changing of the element
 //                     ID and disabling the icon.
+// v0.6.1 2010-MM-DD - Morgan Aldridge
+//                     Clickable #hashtags, smaller JSON requests from Twitter.
 // 
 
 if (!window['makkintosshu']) { window['makkintosshu'] = {}; }
@@ -96,6 +98,7 @@ makkintosshu.twitterStatuses = {
     				
 				tweet_text = tweet_text.replace(/((http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(\/*)(:(\d+))?([A-Z0-9_\/.?~-]*))/gi, '<a href="$1">$1</a>');
 				tweet_text = tweet_text.replace(/(@([A-Z0-9_]+))/gi, '@<a class="reply" title="$2 on twitter" href="http://twitter.com/$2">$2</a>');
+				tweet_text = tweet_text.replace(/(#([A-Z0-9_]+))/gi, '<a class="hashtag" href="http://twitter.com/search?q=%23$2">#$2</a>');
     				
 				statuses_html += '<li class="';
 				if ( tweetCount == 1 ) {
