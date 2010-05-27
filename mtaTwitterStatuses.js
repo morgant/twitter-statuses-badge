@@ -34,7 +34,7 @@
 //                     defaults/settings. Re-implemented @reply filtering, 
 //                     limiting tweet count, and added changing of the element
 //                     ID and disabling the icon.
-// v0.6.1 2010-MM-DD - Morgan Aldridge
+// v0.6.1 2010-05-27 - Morgan Aldridge
 //                     Clickable #hashtags, smaller JSON requests from Twitter.
 // 
 
