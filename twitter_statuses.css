@@ -9,12 +9,16 @@ body { background-color: #000; }
 #mtaTwitter ul:before {
 	display: block;
     position: absolute;
-    top: 15px;
-    left: -11px;
-    width: 11px;
-    height: 21px;
+    top: 16px;
+    left: -10px;
     margin: 0;
-    content: url("white_triangle-left.png");
+    content: '';
+    border-top: 10px solid transparent;
+    border-right: 10px solid #fff;
+    border-bottom: 10px solid transparent;
+    line-height: 0;
+    font-size: 0;
+    width: 0;
 }
 #mtaTwitter ul {
 	position: relative;

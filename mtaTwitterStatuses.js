@@ -34,7 +34,7 @@
 //                     defaults/settings. Re-implemented @reply filtering, 
 //                     limiting tweet count, and added changing of the element
 //                     ID and disabling the icon.
-// v0.6.1 2010-05-27 - Morgan Aldridge
+// 0.6.1  2010-05-27 - Morgan Aldridge
 //                     Clickable #hashtags, smaller JSON requests from Twitter.
 // 
 
@@ -92,7 +92,8 @@ makkintosshu.twitterStatuses = {
 		
 		for ( var i = 0; i < obj.length && tweetCount < maxTweets; i++ ) {
 			var tweet_text = obj[i].text;
-		
+			var classes = [];
+			
 			if ( !makkintosshu.twitterStatuses.filterReplies || (tweet_text.match(/^@[A-Z0-9_]+/gi) == null) ) {
 				tweetCount++;
     				
@@ -100,18 +101,17 @@ makkintosshu.twitterStatuses = {
 				tweet_text = tweet_text.replace(/(@([A-Z0-9_]+))/gi, '@<a class="reply" title="$2 on twitter" href="http://twitter.com/$2">$2</a>');
 				tweet_text = tweet_text.replace(/(#([A-Z0-9_]+))/gi, '<a class="hashtag" href="http://twitter.com/search?q=%23$2">#$2</a>');
     				
-				statuses_html += '<li class="';
 				if ( tweetCount == 1 ) {
-    					statuses_html += 'first ';
+    					classes.push('first');
 				} else if ( tweetCount == maxTweets ) {
-					statuses_html += 'last';
+					classes.push('last');
 				}
 				if ( isEven ) {
-					statuses_html += ' even';
+					classes.push('even');
 				} else {
-					statuses_html += ' odd';
+					classes.push('odd');
 				}
-				statuses_html += '">';
+				statuses_html += '<li class="' + classes.join(' ') + '">';
 				statuses_html += tweet_text;
 				statuses_html += ' <span class="when"><a href="http://twitter.com/' + obj[i].user.screen_name + '/statuses/' + obj[i].id + '">' + makkintosshu.twitterStatuses.relativeTime(makkintosshu.twitterStatuses.fixDate(obj[i].created_at)) + "</a></span></li>\n";
 				
