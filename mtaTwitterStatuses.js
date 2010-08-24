@@ -36,6 +36,10 @@
 //                     ID and disabling the icon.
 // 0.6.1  2010-05-27 - Morgan Aldridge
 //                     Clickable #hashtags, smaller JSON requests from Twitter.
+// 0.7    2010-07-31 - Morgan Aldridge
+//                     More flexible adding of classes. Purely CSS rendering (no
+//                     images) of default theme. Now using John Gruber's improved
+//                     regex for matching URLs.
 // 
 
 if (!window['makkintosshu']) { window['makkintosshu'] = {}; }
@@ -97,7 +101,9 @@ makkintosshu.twitterStatuses = {
 			if ( !makkintosshu.twitterStatuses.filterReplies || (tweet_text.match(/^@[A-Z0-9_]+/gi) == null) ) {
 				tweetCount++;
     				
-				tweet_text = tweet_text.replace(/((http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(\/*)(:(\d+))?([A-Z0-9_\/.?~-]*))/gi, '<a href="$1">$1</a>');
+				// John Gruber's "Improved Liberal, Accurate Regex Pattern for Matching URLs" (2010-07-27) for parsing links
+				// http://daringfireball.net/2010/07/improved_regex_for_matching_urls
+				tweet_text = tweet_text.replace(/\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/gi, '<a href="$1">$1</a>');
 				tweet_text = tweet_text.replace(/(@([A-Z0-9_]+))/gi, '@<a class="reply" title="$2 on twitter" href="http://twitter.com/$2">$2</a>');
 				tweet_text = tweet_text.replace(/(#([A-Z0-9_]+))/gi, '<a class="hashtag" href="http://twitter.com/search?q=%23$2">#$2</a>');
     				
