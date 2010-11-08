@@ -34,12 +34,13 @@
 //                     defaults/settings. Re-implemented @reply filtering, 
 //                     limiting tweet count, and added changing of the element
 //                     ID and disabling the icon.
-// 0.6.1  2010-05-27 - Morgan Aldridge
+// v0.6.1 2010-05-27 - Morgan Aldridge
 //                     Clickable #hashtags, smaller JSON requests from Twitter.
-// 0.7    2010-07-31 - Morgan Aldridge
-//                     More flexible adding of classes. Purely CSS rendering (no
-//                     images) of default theme. Now using John Gruber's improved
-//                     regex for matching URLs.
+// v0.7   2010-11-08 - Morgan Aldridge
+//                     More flexible adding of classes, plus "reply" class. Purely
+//                     CSS rendering (no images) of default theme. Now using John
+//                     Gruber's improved regex for matching URLs. Supports Twitter
+//                     Search results as well.
 // 
 
 if (!window['makkintosshu']) { window['makkintosshu'] = {}; }
@@ -83,24 +84,32 @@ makkintosshu.twitterStatuses = {
 	},
 	
 	twitterCallback: function (obj) {
-		var id = obj[0].user.id;
 		var statuses_html = '';
 		var isEven = false;
 		var maxTweets = makkintosshu.twitterStatuses.tweetCount;
 		var tweetCount = 0;
+		var search = false;
+		var tweets = obj;
 		
-		if ( makkintosshu.twitterStatuses.showIcon ) {
+		if ( obj.results )
+		{
+			search = true;
+			tweets = obj.results;
+		}
+		else if ( makkintosshu.twitterStatuses.showIcon ) {
 			statuses_html += '<a href="http://twitter.com/' + obj[0].user.screen_name + '"><img src="' + obj[0].user.profile_image_url + '" alt="' + obj[0].user.name + '" /></a>' + "\n";
 		}
+
 		statuses_html += "<ul>\n";
 		
-		for ( var i = 0; i < obj.length && tweetCount < maxTweets; i++ ) {
-			var tweet_text = obj[i].text;
+		for ( var i = 0; i < tweets.length && tweetCount < maxTweets; i++ ) {
+			var tweet_text = tweets[i].text;
 			var classes = [];
+			var nonReply = (tweet_text.match(/^@[A-Z0-9_]+/gi) == null);
 			
-			if ( !makkintosshu.twitterStatuses.filterReplies || (tweet_text.match(/^@[A-Z0-9_]+/gi) == null) ) {
+			if ( search || !makkintosshu.twitterStatuses.filterReplies || nonReply ) {
 				tweetCount++;
-    				
+
 				// John Gruber's "Improved Liberal, Accurate Regex Pattern for Matching URLs" (2010-07-27) for parsing links
 				// http://daringfireball.net/2010/07/improved_regex_for_matching_urls
 				tweet_text = tweet_text.replace(/\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/gi, '<a href="$1">$1</a>');
@@ -117,10 +126,25 @@ makkintosshu.twitterStatuses = {
 				} else {
 					classes.push('odd');
 				}
+				if ( !nonReply )
+				{
+					classes.push('reply');
+				}
 				statuses_html += '<li class="' + classes.join(' ') + '">';
+				if ( search && makkintosshu.twitterStatuses.showIcon ) {
+					statuses_html += '<a href="http://twitter.com/' + tweets[i].from_user + '"><img src="' + tweets[i].profile_image_url + '" alt="' + tweets[i].from_user + '" /></a>' + "\n";
+				}
+
 				statuses_html += tweet_text;
-				statuses_html += ' <span class="when"><a href="http://twitter.com/' + obj[i].user.screen_name + '/statuses/' + obj[i].id + '">' + makkintosshu.twitterStatuses.relativeTime(makkintosshu.twitterStatuses.fixDate(obj[i].created_at)) + "</a></span></li>\n";
-				
+				if ( !search )
+				{
+					statuses_html += ' <span class="when"><a href="http://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id + '">' + makkintosshu.twitterStatuses.relativeTime(makkintosshu.twitterStatuses.fixDate(tweets[i].created_at)) + "</a></span></li>\n";
+				}
+				else
+				{
+					statuses_html += ' <span class="when"><a href="http://twitter.com/' + tweets[i].from_user + '/statuses/' + tweets[i].id + '">' + makkintosshu.twitterStatuses.relativeTime(tweets[i].created_at) + "</a></span></li>\n";
+				}
+
 				isEven = !isEven;
 			}
 		}
