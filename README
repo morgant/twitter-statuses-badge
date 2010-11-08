@@ -32,6 +32,10 @@ There are three steps to using mtaTwitterStatuses.js:
 
 	<script type="text/javascript" src="http://www.twitter.com/statuses/user_timeline/morgant.json?skip_user=true&callback=makkintosshu.twitterStatuses.twitterCallback"></script>
 
+Or, if you want to display search results (for '@morgant', in this example), you can use the following Twitter JavaScript call instead of the above:
+
+	<script type="text/javascript" src="http://search.twitter.com/search.json?q=%40morgant&show_user=true&callback=makkintosshu.twitterStatuses.twitterCallback"></script>
+
 That's it! Let me know if you have any questions, bug reports, or feature requests.
 
 ADVANCED FEATURES
@@ -44,7 +48,7 @@ To use them, you must add an extra <script type="text/javascript"></script> bloc
 	
 	tweetCount: (1-20) This will limit the number of tweets shown to the number specified. Default is 5.
 	
-	filterReplies: (true/false) This will filter out tweets that start with an @reply. Default is false.
+	filterReplies: (true/false) This will filter out tweets that start with an @reply. Default is false. (Note: Ignored when displaying search results.)
 	
 	showIcon: (true/false) This will allow you not insert the account's icon before the list of tweets. Default is true;
 
@@ -58,6 +62,8 @@ Example:
 	</script>
 
 CHANGE LOG
+
+v0.7 - More flexible adding of classes, plus "reply" class. Purely CSS rendering (no images) of default theme. Now using John Gruber's improved regex for matching URLs. Supports Twitter Search results as well.
 
 v0.6.1 - Clickable #hashtags, smaller JSON requests from Twitter.
 
