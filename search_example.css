@@ -1,0 +1,49 @@
+body { background-color: #000; }
+#mtaTwitter { padding: 0; }
+#mtaTwitter > a { float: left; }
+#mtaTwitter ul {
+	position: relative;
+    list-style: none;
+    margin: 0;
+    margin-left: 38px;
+    padding: 0px;
+    font-family: Helvetica, sans-serif;
+}
+#mtaTwitter ul img {
+	height: 20px;
+	width: 20px;
+	margin-top: -5px;
+	margin-bottom: -5px;
+	margin-left: -45px;
+	margin-right: 20px;
+	border: none;
+}
+#mtaTwitter ul li:before {
+        display: inline-block;
+	margin: 0;
+	margin-left: -20px;
+	margin-right: 10px;
+	margin-top: -5px;
+	margin-bottom: -5px;
+	content: '';
+	border-top: 10px solid transparent;
+	border-right: 10px solid #fff;
+	border-bottom: 10px solid transparent;
+	line-height: 0;
+	font-size: 0;
+	width: 0;
+}
+#mtaTwitter ul li.even:before {
+	border-right: 10px solid #EDEEFD;
+}
+#mtaTwitter ul li {
+	margin-bottom: 1px;
+	padding: 10px 10px;
+	font-size: 10pt;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #fff;
+}
+#mtaTwitter ul li.even { background-color: #EDEEFD; }
+#mtaTwitter ul li span { font-style: normal; }

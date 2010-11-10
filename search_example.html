@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="search_example.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="mtaTwitterStatuses.js"></script>
+		<title>mtaTwitterStatuses.js Search Example</title>
+	</head>
+	<body>
+		
+		<!-- BEGIN TWITTER BADGE -->
+		<div id="mtaTwitter"></div>
+		<!-- OPTIONAL: -->
+		<script type="text/javascript">
+			makkintosshu.twitterStatuses.elementId = 'mtaTwitter';
+			makkintosshu.twitterStatuses.tweetCount = 5;
+			makkintosshu.twitterStatuses.filterReplies = false;
+			makkintosshu.twitterStatuses.showIcon = true;
+		</script>
+		<!-- REQUIRED: -->
+		<script type="text/javascript" src="http://search.twitter.com/search.json?q=%40morgant&show_user=true&callback=makkintosshu.twitterStatuses.twitterCallback"></script>
+		<!-- END TWITTER BADGE -->
+
+	</body>
+</html>
