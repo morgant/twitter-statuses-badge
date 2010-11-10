@@ -36,7 +36,7 @@
 //                     ID and disabling the icon.
 // v0.6.1 2010-05-27 - Morgan Aldridge
 //                     Clickable #hashtags, smaller JSON requests from Twitter.
-// v0.7   2010-11-08 - Morgan Aldridge
+// v0.7   2010-11-10 - Morgan Aldridge
 //                     More flexible adding of classes, plus "reply" class. Purely
 //                     CSS rendering (no images) of default theme. Now using John
 //                     Gruber's improved regex for matching URLs. Supports Twitter
