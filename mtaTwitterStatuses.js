@@ -133,6 +133,9 @@ makkintosshu.twitterStatuses = {
 				statuses_html += '<li class="' + classes.join(' ') + '">';
 				if ( search && makkintosshu.twitterStatuses.showIcon ) {
 					statuses_html += '<a href="http://twitter.com/' + tweets[i].from_user + '"><img src="' + tweets[i].profile_image_url + '" alt="' + tweets[i].from_user + '" /></a>' + "\n";
+				} else if ( search )
+				{
+					statuses_html += '<span class="from">@<a href="http://twitter.com/' + tweets[i].from_user + '">' + tweets[i].from_user + '</a>: ';
 				}
 
 				statuses_html += tweet_text;
