@@ -17,6 +17,7 @@ This modification provides insertion of the user's image (linking to their twitt
 This package contains an html file and associated CSS & image files, but they are merely an example of usage and only the mtaTwitterStatuses.js JavaScript file is needed (it can be embeded directly in any HTML document, if you prefer).
 
 BASIC INSTRUCTIONS
+------------------
 
 There are three steps to using mtaTwitterStatuses.js:
 
@@ -39,18 +40,19 @@ Or, if you want to display search results (for '@morgant', in this example), you
 That's it! Let me know if you have any questions, bug reports, or feature requests.
 
 ADVANCED FEATURES
+-----------------
 
 In addition to the CSS hooks so that you have finer grained control over the styling of the badge, I'm also revealing preferences which you may set to use more advanced features.
 
 To use them, you must add an extra <script type="text/javascript"></script> block after the include of mtaTwitterStatuses.js and before you call the callback In this block, you should set one of the following makkintosshu.twitterStatuses variables accordingly:
 
-	elementId: This allows you to specify the HTML element ID you want the Twitter statuses inserted into. Default is 'mtaTwitter'.
+* elementId: This allows you to specify the HTML element ID you want the Twitter statuses inserted into. Default is 'mtaTwitter'.
 	
-	tweetCount: (1-20) This will limit the number of tweets shown to the number specified. Default is 5.
+* tweetCount: (1-20) This will limit the number of tweets shown to the number specified. Default is 5.
 	
-	filterReplies: (true/false) This will filter out tweets that start with an @reply. Default is false. (Note: Ignored when displaying search results.)
+* filterReplies: (true/false) This will filter out tweets that start with an @reply. Default is false. (Note: Ignored when displaying search results.)
 	
-	showIcon: (true/false) This will allow you not insert the account's icon before the list of tweets. Default is true;
+* showIcon: (true/false) This will allow you not insert the account's icon before the list of tweets. Default is true;
 
 Example:
 
@@ -62,6 +64,7 @@ Example:
 	</script>
 
 CHANGE LOG
+----------
 
 v0.7 - More flexible adding of classes, plus "reply" class. Purely CSS rendering (no images) of default theme. Now using John Gruber's improved regex for matching URLs. Supports Twitter Search results as well.
 
