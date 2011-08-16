@@ -118,7 +118,8 @@ makkintosshu.twitterStatuses = {
     				
 				if ( tweetCount == 1 ) {
     					classes.push('first');
-				} else if ( tweetCount == maxTweets ) {
+				}
+				if ( tweetCount == maxTweets ) {
 					classes.push('last');
 				}
 				if ( isEven ) {
