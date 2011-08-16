@@ -66,18 +66,20 @@ Example:
 CHANGE LOG
 ----------
 
-v0.7 - More flexible adding of classes, plus "reply" class. Purely CSS rendering (no images) of default theme. Now using John Gruber's improved regex for matching URLs. Supports Twitter Search results as well.
+v0.7.1 - Support for 'snowflake' status IDs. Single status lists now correctly have both 'first' & 'last' classes applied.
+
+v0.7   - More flexible adding of classes, plus "reply" class. Purely CSS rendering (no images) of default theme. Now using John Gruber's improved regex for matching URLs. Supports Twitter Search results as well.
 
 v0.6.1 - Clickable #hashtags, smaller JSON requests from Twitter.
 
-v0.6 - Further namespacing improvements plus variables for defaults/settings. Re-implemented @reply filtering, limiting tweet count, and added changing of the element ID and disabling the icon.
+v0.6   - Further namespacing improvements plus variables for defaults/settings. Re-implemented @reply filtering, limiting tweet count, and added changing of the element ID and disabling the icon.
 
-v0.5 - Added feature to filter out @replies, if requested.
+v0.5   - Added feature to filter out @replies, if requested.
 
-v0.4 - Updated regular expressions to find @replies butting up against punctuation. Some HTML+CSS restructuring.
+v0.4   - Updated regular expressions to find @replies butting up against punctuation. Some HTML+CSS restructuring.
 
-v0.3 - Integrated regular expressions for making @replies and inks clickable, thanks to René van Meurs.
+v0.3   - Integrated regular expressions for making @replies and inks clickable, thanks to René van Meurs.
 
-v0.2 - Integrated Jon Aquino's IE date parsing fix. Minor HTML+CSS tweaks & function name changes for better namespacing.
+v0.2   - Integrated Jon Aquino's IE date parsing fix. Minor HTML+CSS tweaks & function name changes for better namespacing.
 
-v0.1 - Initial release.
+v0.1   - Initial release.

@@ -41,6 +41,9 @@
 //                     CSS rendering (no images) of default theme. Now using John
 //                     Gruber's improved regex for matching URLs. Supports Twitter
 //                     Search results as well.
+// v0.7.1 2011-08-16 - Morgan Aldridge
+//                     Support for 'snowflake' status IDs. Single status lists
+//                     now correctly have both 'first' & 'last' classes applied.
 // 
 
 if (!window['makkintosshu']) { window['makkintosshu'] = {}; }
