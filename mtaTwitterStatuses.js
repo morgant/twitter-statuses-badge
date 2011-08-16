@@ -141,11 +141,11 @@ makkintosshu.twitterStatuses = {
 				statuses_html += tweet_text;
 				if ( !search )
 				{
-					statuses_html += ' <span class="when"><a href="http://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id + '">' + makkintosshu.twitterStatuses.relativeTime(makkintosshu.twitterStatuses.fixDate(tweets[i].created_at)) + "</a></span></li>\n";
+					statuses_html += ' <span class="when"><a href="http://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str + '">' + makkintosshu.twitterStatuses.relativeTime(makkintosshu.twitterStatuses.fixDate(tweets[i].created_at)) + "</a></span></li>\n";
 				}
 				else
 				{
-					statuses_html += ' <span class="when"><a href="http://twitter.com/' + tweets[i].from_user + '/statuses/' + tweets[i].id + '">' + makkintosshu.twitterStatuses.relativeTime(tweets[i].created_at) + "</a></span></li>\n";
+					statuses_html += ' <span class="when"><a href="http://twitter.com/' + tweets[i].from_user + '/statuses/' + tweets[i].id_str + '">' + makkintosshu.twitterStatuses.relativeTime(tweets[i].created_at) + "</a></span></li>\n";
 				}
 
 				isEven = !isEven;
