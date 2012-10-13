@@ -31,7 +31,7 @@ There are three steps to using mtaTwitterStatuses.js:
 
 3) Include the Twitter JavaScript call in the BODY of your HTML (replacing my Twitter account name, 'morgant', with your own). For simplicity, you can paste it in immediately after the aforementioned DIV, but I'd suggest inserting it just before the closing </body> tag to ensure that your HTML content still loads in its entirety, even if Twitter is down:
 
-	<script type="text/javascript" src="http://www.twitter.com/statuses/user_timeline/morgant.json?skip_user=true&callback=makkintosshu.twitterStatuses.twitterCallback"></script>
+	<script type="text/javascript" src="http://api.twitter.com/1/statuses/user_timeline.json?screen_name=morgant&callback=makkintosshu.twitterStatuses.twitterCallback"></script>
 
 Or, if you want to display search results (for '@morgant', in this example), you can use the following Twitter JavaScript call instead of the above:
 
@@ -65,6 +65,8 @@ Example:
 
 CHANGE LOG
 ----------
+
+v0.7.2 - Changed user timeline requests to Twitter API v1 syntax to fix loading errors.
 
 v0.7.1 - Support for 'snowflake' status IDs. Single status lists now correctly have both 'first' & 'last' classes applied.
 
